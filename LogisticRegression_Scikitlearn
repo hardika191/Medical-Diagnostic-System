@@ -1,0 +1,28 @@
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn import metrics
+lasso = False
+nfeatures = len(stddf.columns)
+if lasso: # lasso regularization
+ penalty = "l1"
+ cval = 1.0
+ alpha = [1.0]*nfeatures
+else: # no regularization
+ penalty = "l1"
+ cval = 1000.0
+ alpha = 0.0
+model = LogisticRegression(fit_intercept=True,penalty=penalty,dual=False,C=cval)
+print(model)
+lrfit = model.fit(Xall,yall)
+print('\nLogisticRegression score on full data set: %f\n' % lrfit.score(Xall,yall))
+ypred = model.predict(Xall)
+print '\nClassification report on full data set:'
+print(metrics.classification_report(yall,ypred))
+print '\nConfusion matrix:'
+print(metrics.confusion_matrix(yall,ypred))
+print '\nLogisticRegression coefficients:'
+coeff = model.coef_.tolist()[0]
+for index in range(len(coeff)):
+ print '%s : %8.5f' % (new_columns_2[index+1].rjust(9),coeff[index])
+print 'Intercept : %f' %model.intercept_
