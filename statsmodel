@@ -1,0 +1,18 @@
+'''
+import pandas as pd
+import statsmodels.api as sm
+df1 = stddf.copy()
+df1["intercept"] = 1.0
+train_cols = df1[df1.columns[1:]]
+response = df1[df1.columns[0]]
+model = sm.Logit(response, train_cols, missing="raise")
+# fit the model
+print('\nNumber of features in model: %i' %nfeatures)
+print('Lasso = %s' % lasso)
+if lasso: print('alpha=%s' %alpha)
+print(" ")
+if lasso:
+ result = model.fit_regularized(method=penalty, alpha=alpha, disp=1)
+else:
+ result = model.fit(method="newton", maxiter=100, disp=1)
+print result.summary()
